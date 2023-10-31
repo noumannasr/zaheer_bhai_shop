@@ -1,7 +1,6 @@
 import 'package:bhai_zaheer_shop/constants.dart';
 import 'package:bhai_zaheer_shop/view/products/add_products_screen.dart';
-import 'package:bhai_zaheer_shop/view/products/main_products_screen.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:bhai_zaheer_shop/res/colors.dart';
@@ -271,7 +270,7 @@ class _HomeViewState extends State<HomeView> {
                     } else {
                       return Center(
                         child: GridView.builder(
-                            physics: NeverScrollableScrollPhysics(),
+                            //physics: NeverScrollableScrollPhysics(),
                             gridDelegate:
                                 SliverGridDelegateWithMaxCrossAxisExtent(
                                     maxCrossAxisExtent: 200,
@@ -334,16 +333,21 @@ class _HomeViewState extends State<HomeView> {
                                         Stack(
                                           children: [
                                             Center(
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                BorderRadius.circular(10),
-                                                child: Image.network(
-                                                  ds['itemImage'],
+                                              child:
+
+                                              ClipRRect(
+                                                borderRadius: BorderRadius.circular(10),
+                                                child: CachedNetworkImage(
                                                   height: size.height * 0.18,
                                                   width: size.width,
                                                   fit: BoxFit.cover,
+                                                  imageUrl:  ds['itemImage'],
+                                                  //   placeholder: (context, url) => CircularProgressIndicator(color: darkRedColor,),
+                                                  errorWidget: (context, url, error) => Icon(Icons.error),
                                                 ),
                                               ),
+
+
                                             ),
                                             Padding(
                                               padding: const EdgeInsets.only(
@@ -605,6 +609,9 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
             ),
+            // SizedBox(
+            //   height: size.height * 0.2,
+            // ),
           ],
         ),
       ),
